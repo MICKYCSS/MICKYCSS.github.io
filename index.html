@@ -71,9 +71,47 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-第一篇博客文章" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-husky-lint-staged-commitlint" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/11/28/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" class="article-date">
+    <a href="/2021/11/29/husky-lint-staged-commitlint/" class="article-date">
+  <time class="dt-published" datetime="2021-11-29T08:38:35.000Z" itemprop="datePublished">2021-11-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/29/husky-lint-staged-commitlint/">husky+lint-staged+commitlint</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/29/husky-lint-staged-commitlint/" data-id="ckwlwufwu0001mwp15ju91880" data-title="husky+lint-staged+commitlint" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-hexo博客搭建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/28/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="article-date">
   <time class="dt-published" datetime="2021-11-28T03:18:35.000Z" itemprop="datePublished">2021-11-28</time>
 </a>
     
@@ -85,7 +123,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/11/28/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">使用hexo搭建博客</a>
+      <a class="p-name article-title" href="/2021/11/28/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">使用hexo搭建博客</a>
     </h1>
   
 
@@ -93,7 +131,20 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><ol>
+        <p>hexo框架，需要node.js</p>
+<p>npm i -g hexo-cli</p>
+<p>初始化sudo hexo init，自动化生成内容</p>
+<p>查看生成了哪些文件ls -l</p>
+<p>启动：hexo s[start]</p>
+<p>新建文章：hexo n[new] ‘博客标题’</p>
+<p>清理：hexo clean</p>
+<p>生成：hexo g[generate]</p>
+<p>部署博客<br>博客部署到github上</p>
+<p>在github上新建一个仓库，名称为xxx.github.io<br>安装git部署插件<br>npm id —save hexo-deployer-git</p>
+<p>打开.config.yml文件找到deploy配置<br>vim _config.yml<br>type: ’git’<br>repo: 仓库地址<br>branch: master<br>部署命令：hexo d[deploy]</p>
+<p>部署完成后可以访问仓库地址</p>
+<p>修改博客主题<br>如何自定义主题？<br>下载主题，在.config.yml中的theme修改</p>
+<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><ol>
 <li>如何添加多个ssh key<br>首先，生成多个ssh key，默认的ssh key不需要重新命名<br>生成的ssh key在~/.ssh文件夹下<br>其中id_rsa为私钥，id_.rsa.pub为公钥<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;chenshasha@zhiyitech.cn&quot;</span><br><span class="line">ssh-keygen -t rsa -C &quot;13738773772@163.com&quot; -f ~/.ssh/id_rsa_mine</span><br></pre></td></tr></table></figure></li>
 <li>如何获取ssh key<ul>
 <li>执行cat ~/.ssh/id_rsa.pub 并粘贴控制台的内容</li>
@@ -110,7 +161,7 @@
 <ol start="4">
 <li>config文件具体配置，HostName为git地址冒号前的内容<br>如果没有配置config文件，会出现以下报错<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Permission denied (publickey)</span><br></pre></td></tr></table></figure>
 config具体配置如下<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Host gitlab</span><br><span class="line">    User git  </span><br><span class="line">    HostName git@gitlab.zhiyitech.cn</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Host github</span><br><span class="line">    User git  </span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_mine</span><br></pre></td></tr></table></figure></li>
-<li>校验是否成功的时候报错，执行命令ssh -T <a href="mailto:&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#108;&#97;&#98;&#x2e;&#x7a;&#x68;&#x69;&#x79;&#105;&#116;&#x65;&#99;&#104;&#46;&#x63;&#110;">&#x67;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#108;&#97;&#98;&#x2e;&#x7a;&#x68;&#x69;&#x79;&#105;&#116;&#x65;&#99;&#104;&#46;&#x63;&#110;</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh:The ECDSA host key for gitlab.317hu.com has changed</span><br></pre></td></tr></table></figure>
+<li>校验是否成功的时候报错，执行命令ssh -T <a href="mailto:&#x67;&#105;&#116;&#x40;&#x67;&#x69;&#x74;&#108;&#97;&#98;&#46;&#122;&#104;&#x69;&#121;&#x69;&#x74;&#101;&#x63;&#104;&#x2e;&#99;&#110;">&#x67;&#105;&#116;&#x40;&#x67;&#x69;&#x74;&#108;&#97;&#98;&#46;&#122;&#104;&#x69;&#121;&#x69;&#x74;&#101;&#x63;&#104;&#x2e;&#99;&#110;</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh:The ECDSA host key for gitlab.317hu.com has changed</span><br></pre></td></tr></table></figure>
 解决方法：删除~/.ssh文件夹下的known_hosts文件，重新按照第一个步骤生成ssh key</li>
 <li>hexo部署到github之后报错<br>解决方法：新建文件夹名称的时候报错，名称必须为用户名.github.io，同时修改项目中_config.yml文件的配置</li>
 </ol>
@@ -118,7 +169,7 @@ config具体配置如下<figure class="highlight plaintext"><table><tr><td class
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/28/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/" data-id="ckwioamjw0000oyp193jkca6j" data-title="使用hexo搭建博客" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/28/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" data-id="ckwlwufwo0000mwp1ekixg79r" data-title="使用hexo搭建博客" class="article-share-link">Share</a>
       
       
       
@@ -169,7 +220,7 @@ config具体配置如下<figure class="highlight plaintext"><table><tr><td class
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/27/hello-world/" data-id="ckwioamk10001oyp1g3uz1cxt" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/11/27/hello-world/" data-id="ckwlwufwv0002mwp16zaheg90" data-title="Hello World" class="article-share-link">Share</a>
       
       
       
@@ -212,7 +263,11 @@ config具体配置如下<figure class="highlight plaintext"><table><tr><td class
       <ul>
         
           <li>
-            <a href="/2021/11/28/%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0/">使用hexo搭建博客</a>
+            <a href="/2021/11/29/husky-lint-staged-commitlint/">husky+lint-staged+commitlint</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/28/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">使用hexo搭建博客</a>
           </li>
         
           <li>
