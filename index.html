@@ -145,6 +145,74 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/02/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/02/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">npm常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-12-02 23:07:42 / Modified: 23:09:23" itemprop="dateCreated datePublished" datetime="2021-12-02T23:07:42+08:00">2021-12-02</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="查看当前项目信息"><a href="#查看当前项目信息" class="headerlink" title="查看当前项目信息"></a>查看当前项目信息</h1><h2 id="查看依赖的几种方式"><a href="#查看依赖的几种方式" class="headerlink" title="查看依赖的几种方式"></a>查看依赖的几种方式</h2><ol>
+<li>npm ls antd/npm ls antd -g【查看全局】</li>
+<li>npm list antd</li>
+<li>在node_modules查看对应依赖的package.json文件查看version</li>
+<li>查看项目的package.json</li>
+</ol>
+<h2 id="查看指定包的所有版本"><a href="#查看指定包的所有版本" class="headerlink" title="查看指定包的所有版本"></a>查看指定包的所有版本</h2><ol>
+<li>npm view antd versions【npm view antd version查看包的最新版本】</li>
+<li>npm info antd</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/29/husky-lint-staged-commitlint/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -275,7 +343,7 @@
 <ol start="4">
 <li>config文件具体配置，HostName为git地址冒号前的内容<br>如果没有配置config文件，会出现以下报错<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Permission denied (publickey)</span><br></pre></td></tr></table></figure>
 config具体配置如下<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Host gitlab</span><br><span class="line">    User git  </span><br><span class="line">    HostName git@gitlab.zhiyitech.cn</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Host github</span><br><span class="line">    User git  </span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_mine</span><br></pre></td></tr></table></figure></li>
-<li>校验是否成功的时候报错，执行命令ssh -T <a href="mailto:&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#108;&#x61;&#x62;&#46;&#122;&#104;&#105;&#x79;&#x69;&#x74;&#101;&#x63;&#x68;&#46;&#x63;&#110;">&#x67;&#x69;&#116;&#64;&#103;&#x69;&#116;&#108;&#x61;&#x62;&#46;&#122;&#104;&#105;&#x79;&#x69;&#x74;&#101;&#x63;&#x68;&#46;&#x63;&#110;</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh:The ECDSA host key for gitlab.317hu.com has changed</span><br></pre></td></tr></table></figure>
+<li>校验是否成功的时候报错，执行命令ssh -T <a href="mailto:&#103;&#105;&#116;&#x40;&#x67;&#105;&#116;&#108;&#97;&#x62;&#46;&#x7a;&#x68;&#x69;&#121;&#x69;&#116;&#x65;&#99;&#104;&#46;&#99;&#x6e;">&#103;&#105;&#116;&#x40;&#x67;&#105;&#116;&#108;&#97;&#x62;&#46;&#x7a;&#x68;&#x69;&#121;&#x69;&#116;&#x65;&#99;&#104;&#46;&#99;&#x6e;</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh:The ECDSA host key for gitlab.317hu.com has changed</span><br></pre></td></tr></table></figure>
 解决方法：删除~/.ssh文件夹下的known_hosts文件，重新按照第一个步骤生成ssh key</li>
 <li>hexo部署到github之后报错<br>解决方法：新建文件夹名称的时候报错，名称必须为用户名.github.io，同时修改项目中_config.yml文件的配置</li>
 </ol>
@@ -430,7 +498,7 @@ config具体配置如下<figure class="highlight plaintext"><table><tr><td class
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
