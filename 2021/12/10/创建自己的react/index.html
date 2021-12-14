@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="使用React创建一个DOM元素在react中能看到这样的写法 123const element &#x3D; &lt;h1 title&#x3D;&quot;foo&quot;&gt;hello&lt;&#x2F;h1&gt;const container &#x3D; document.getElementById(&quot;root&quot;)ReactDOM.render(element,container) React.c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="创建自己的react">
+<meta property="og:url" content="http://example.com/2021/12/10/%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84react/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="使用React创建一个DOM元素在react中能看到这样的写法 123const element &#x3D; &lt;h1 title&#x3D;&quot;foo&quot;&gt;hello&lt;&#x2F;h1&gt;const container &#x3D; document.getElementById(&quot;root&quot;)ReactDOM.render(element,container) React.c">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-10T01:40:19.000Z">
+<meta property="article:modified_time" content="2021-12-13T07:03:27.016Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/12/10/%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84react/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>创建自己的react | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/10/%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84react/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          创建自己的react
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-10 09:40:19" itemprop="dateCreated datePublished" datetime="2021-12-10T09:40:19+08:00">2021-12-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-13 15:03:27" itemprop="dateModified" datetime="2021-12-13T15:03:27+08:00">2021-12-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="使用React创建一个DOM元素"><a href="#使用React创建一个DOM元素" class="headerlink" title="使用React创建一个DOM元素"></a>使用React创建一个DOM元素</h1><p>在react中能看到这样的写法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const element = &lt;h1 title=&quot;foo&quot;&gt;hello&lt;/h1&gt;</span><br><span class="line">const container = document.getElementById(&quot;root&quot;)</span><br><span class="line">ReactDOM.render(element,container)</span><br></pre></td></tr></table></figure>
+<h1 id="React-createElement-方法返回了什么？"><a href="#React-createElement-方法返回了什么？" class="headerlink" title="React.createElement 方法返回了什么？"></a>React.createElement 方法返回了什么？</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//上述创建element的方法等于如下</span><br><span class="line">const element = React.createElement(&quot;h1&quot;,&#123;title:&quot;foo&quot;&#125;,&quot;hello&quot;)</span><br></pre></td></tr></table></figure>
+<p>React.createElement 执行之后返回的其实是一个对象，对象结构如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const element = &#123;</span><br><span class="line">	type:&quot;h1&quot;,</span><br><span class="line">	props:&#123;</span><br><span class="line">		title:&quot;foo&quot;,</span><br><span class="line">		children:&quot;hello&quot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="React-createElement-方法的具体实现"><a href="#React-createElement-方法的具体实现" class="headerlink" title="React.createElement 方法的具体实现"></a>React.createElement 方法的具体实现</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const element = </span><br><span class="line">	&lt;div id=&quot;foo&quot;&gt;</span><br><span class="line">		&lt;a&gt;bar&lt;/a&gt;</span><br><span class="line">		&lt;b/&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">React.createElement(&quot;div&quot;,&#123;</span><br><span class="line">	id:&quot;foo&quot;</span><br><span class="line">&#125;,</span><br><span class="line">	React.createElement(&quot;a&quot;,null,&quot;bar&quot;),</span><br><span class="line">	React.createElement(&quot;b&quot;)</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>createElement方法的入参为[type,props,children]，返回的则是一个固定的结构</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function createElement(type,props,...children)&#123;</span><br><span class="line">	//children是一个element数组[React.createElement(&quot;a&quot;,null,&quot;bar&quot;),React.createElement(&quot;b&quot;)]</span><br><span class="line">	//也就是[&#123;type:&quot;a&quot;,props:&#123;children:&quot;bar&quot;&#125;&#125;,&#123;type:&quot;b&quot;&#125;]</span><br><span class="line">	return &#123;</span><br><span class="line">		type,</span><br><span class="line">		props:&#123;</span><br><span class="line">			...props,</span><br><span class="line">			children:children.map(child=&gt;typeof child === &quot;object&quot;?child:createTextElement(child))</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="React-createTextElement-方法的具体实现"><a href="#React-createTextElement-方法的具体实现" class="headerlink" title="React.createTextElement 方法的具体实现"></a>React.createTextElement 方法的具体实现</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function createTextElement(text)&#123;</span><br><span class="line">	return &#123;</span><br><span class="line">		type:&quot;TEXT_ELEMENT&quot;,</span><br><span class="line">		props:&#123;</span><br><span class="line">			nodeValue:text,</span><br><span class="line">			children:[]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="React-render-方法的具体实现？"><a href="#React-render-方法的具体实现？" class="headerlink" title="React.render 方法的具体实现？"></a>React.render 方法的具体实现？</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function render(element,container)&#123;</span><br><span class="line">	//根据element对象的type属性创建节点</span><br><span class="line">	const dom = element.type === &#x27;TEXT_ELEMENT&#x27;? document.createTextNode(&quot;&quot;): document.createElement(element.type)</span><br><span class="line"></span><br><span class="line">	//将element的props属性中的属性值赋给节点</span><br><span class="line">	const isProperty = key =&gt; key !== &quot;children&quot;</span><br><span class="line">	Object.keys(element.props).filter(isProperty).forEach((name)=&gt; dom[name] = element.props[name])</span><br><span class="line"></span><br><span class="line">	//同样的方法处理element的children</span><br><span class="line">	element.props.children.forEach(child=&gt;&#123;render(child,dom)&#125;)</span><br><span class="line"></span><br><span class="line">	//将节点塞入容器之中</span><br><span class="line">	container.appendChild(dom)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是上述render方法存在一个问题：一旦渲染开始就无法中止，必须等到全部渲染完成后才行</p>
+<h1 id="如何解决render无法中止的问题？"><a href="#如何解决render无法中止的问题？" class="headerlink" title="如何解决render无法中止的问题？"></a>如何解决render无法中止的问题？</h1><p>为了能够中止，把工作流程拆成一个个单元，使用浏览器的 requestIdleCallback 方法来介入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let nextUnitOfWork = null</span><br><span class="line">function workLoop(deadline)&#123;</span><br><span class="line">	//判断中否要中止的标识</span><br><span class="line">	let shouldYield = false</span><br><span class="line"></span><br><span class="line">	//如果存在下一个工作单元，并且浏览器有空闲时间，则执行 performUnitOfWork</span><br><span class="line">	while(nextUnitOfWork &amp;&amp; !shouldYield)&#123;</span><br><span class="line">		nextUnitOfWork = performUnitOfWork(nextUnitOfWork)</span><br><span class="line"></span><br><span class="line">		//判断浏览器距离下一帧是否有空闲时间</span><br><span class="line">		shouldYield = deadline.timeRemaining() &lt; 1</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if(!nextUnitOfWork &amp;&amp; wipRoot)&#123;</span><br><span class="line">		commitRoot()</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	requestIdleCallback(workLoop)</span><br><span class="line">&#125;</span><br><span class="line">requestIdleCallback(workLoop)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="为了更好地组织工作单元，我们需要一个数据结构-Fiber-Tree"><a href="#为了更好地组织工作单元，我们需要一个数据结构-Fiber-Tree" class="headerlink" title="为了更好地组织工作单元，我们需要一个数据结构 Fiber Tree"></a>为了更好地组织工作单元，我们需要一个数据结构 Fiber Tree</h1><h2 id="Fiber-的结构"><a href="#Fiber-的结构" class="headerlink" title="Fiber 的结构"></a>Fiber 的结构</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const fiber = &#123;</span><br><span class="line">	type:</span><br><span class="line">	props:&#123;</span><br><span class="line">		children:[]</span><br><span class="line">	&#125;</span><br><span class="line">	dom:</span><br><span class="line">	alternate:</span><br><span class="line">	effectTag: &quot;UPDATE&quot;|&quot;PLACEMENT&quot;|&quot;DELETION&quot;</span><br><span class="line">	parent:&#123;</span><br><span class="line">		type:</span><br><span class="line">		dom:</span><br><span class="line">	&#125;,</span><br><span class="line">	child:&#123;</span><br><span class="line">		type:</span><br><span class="line">		dom:</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在render方法中创建 root Fiber, 剩余工作会在 performUnitOfWork 方法中执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">let nextUnitOfWork = null</span><br><span class="line">let wipRoot = null</span><br><span class="line">let currentRoot = null</span><br><span class="line">let deletions = null</span><br><span class="line">function render(element,container)&#123;</span><br><span class="line">	wipRoot = &#123;</span><br><span class="line">		dom: container,</span><br><span class="line">		props: &#123;</span><br><span class="line">			children: [element]</span><br><span class="line">		&#125;,</span><br><span class="line">		alternate: currentRoot</span><br><span class="line">	&#125;</span><br><span class="line">	deletions = []</span><br><span class="line">	nextUnitOfWork = wipRoot</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="createDom-，根据Fiber创建DOM节点"><a href="#createDom-，根据Fiber创建DOM节点" class="headerlink" title="createDom ，根据Fiber创建DOM节点"></a>createDom ，根据Fiber创建DOM节点</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function createDom(fiber)&#123;</span><br><span class="line">	const dom = fiber.type === &#x27;TEXT_ELEMENT&#x27;?document.createTextNode(&quot;&quot;):document.createElement(fiber.type)</span><br><span class="line">	const isProperty = key =&gt; key !== &quot;children&quot;</span><br><span class="line">	Object.keys(element.props).filter(isProperty).forEach((name)=&gt; dom[name] = element.props[name])</span><br><span class="line">	return dom</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="performUnitOfWork-方法"><a href="#performUnitOfWork-方法" class="headerlink" title="performUnitOfWork 方法"></a>performUnitOfWork 方法</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">function performUnitOfWork(fiber)&#123;</span><br><span class="line">	//以下方法无法处理函数组件</span><br><span class="line">	&lt;!-- //如果没有dom，则创建dom</span><br><span class="line">	if(!fiber.dom)&#123;</span><br><span class="line">		fiber.dom = createDom(fiber)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//如果存在父节点，则把挂载到父节点上</span><br><span class="line">	&lt;!-- 但是这个方法会可能会让用户看到未完成的UI界面，为了解决这个问题，在render方法中我们创建wipRoot(work in progress) --&gt;</span><br><span class="line">	&lt;!-- if(fiber.parent)&#123;</span><br><span class="line">		fiber.parent.dom.appendChild(fiber.dom)</span><br><span class="line">	&#125; --&gt;</span><br><span class="line"></span><br><span class="line">	//为每个子节点创建 Fiber </span><br><span class="line">	const elements = fiber.props.children</span><br><span class="line"></span><br><span class="line">	//比较 旧的fiber 和 新的elements</span><br><span class="line">	reconcileChildren(fiber, elements) --&gt;</span><br><span class="line"></span><br><span class="line">	const isFunctionComponent = fiber.type instanceof Function</span><br><span class="line">	if(isFunctionComponent)&#123;</span><br><span class="line">		updateFunctionComponent(fiber)</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			updateHostComponent(fiber)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	//如果是子节点则返回</span><br><span class="line">	if(fiber.child)&#123;</span><br><span class="line">		return fiber.child</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//如果不是，再去找兄弟节点等</span><br><span class="line">	let nextFiber = fiber</span><br><span class="line">	while(nextFiber)&#123;</span><br><span class="line">		if(nextFiber.sibling)&#123;</span><br><span class="line">			return nextFiber.sibling</span><br><span class="line">		&#125;</span><br><span class="line">		nextFiber = nextFiber.parent</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="什么时候真正去添加DOM节点？"><a href="#什么时候真正去添加DOM节点？" class="headerlink" title="什么时候真正去添加DOM节点？"></a>什么时候真正去添加DOM节点？</h1><p>如果在 performUnitOfWork 方法中真正去添加DOM节点，用户会看到未完成的UI界面，因此在 commitRoot 方法中添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">function commitRoot()&#123;</span><br><span class="line">	//删除DOM节点</span><br><span class="line">	deletions.forEach(commitWork)</span><br><span class="line"></span><br><span class="line">	//添加DOM节点</span><br><span class="line">	commitWork(wipRoot.child)</span><br><span class="line"></span><br><span class="line">	//实现了添加DOM节点之后，我们要如何去更新和删除DOM节点？此时需要一个新的对象存储上一次的Fiber Tree —— currentRoot </span><br><span class="line">	currentRoot = wipRoot</span><br><span class="line"></span><br><span class="line">	wipRoot = null</span><br><span class="line">&#125;</span><br><span class="line">function commitWork(fiber)&#123;</span><br><span class="line">	if(!fiber)&#123;</span><br><span class="line">		return</span><br><span class="line">	&#125;</span><br><span class="line">	&lt;!-- //无法处理函数组件</span><br><span class="line">	const domParent = fiber.parent.dom --&gt;</span><br><span class="line"></span><br><span class="line">	let domParentFiber = fiber.parent</span><br><span class="line">	//寻找存在dom的节点</span><br><span class="line">	while(!domParentFiber.dom)&#123;</span><br><span class="line">		domParentFiber = domParentFiber.parent</span><br><span class="line">	&#125;</span><br><span class="line">	const domParent = domParentFiber.dom</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	if(fiber.effectTag === &quot;PLACEMENT&quot; &amp;&amp; fiber.dom !== null)&#123;</span><br><span class="line">		//如果是添加DOM节点</span><br><span class="line">		domParent.appendChild(fiber.dom)</span><br><span class="line">	&#125;else if(fiber.effectTag === &quot;UPDATE&quot; &amp;&amp; fiber.dom !== null)&#123;</span><br><span class="line">		//如果是更新DOM节点</span><br><span class="line">		updateDom(fiber.dom,fiber.alternate.props,fiber.props)</span><br><span class="line">	&#125;else if(fiber.effectTag === &quot;DELETION&quot;)&#123;</span><br><span class="line">		//如果是删除DOM节点</span><br><span class="line">		&lt;!-- domParent.removeChild(fiber.dom) --&gt;</span><br><span class="line">		commitDeletion(fiber, domParent)</span><br><span class="line">	&#125;</span><br><span class="line">	commitWork(fiber.child)</span><br><span class="line">	commitWork(fiber.sibling)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">function commitDeletion(fiber,domParent)&#123;</span><br><span class="line">	if(fiber.dom)&#123;</span><br><span class="line">		domParent.removeChild(fiber.dom)</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		commitDeletion(fiber.child,domParent)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="如何去更新和删除DOM节点？在-performUnitOfWork-方法中调用-reconcileChildren-方法处理-fiber"><a href="#如何去更新和删除DOM节点？在-performUnitOfWork-方法中调用-reconcileChildren-方法处理-fiber" class="headerlink" title="如何去更新和删除DOM节点？在 performUnitOfWork 方法中调用 reconcileChildren 方法处理 fiber"></a>如何去更新和删除DOM节点？在 performUnitOfWork 方法中调用 reconcileChildren 方法处理 fiber</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">function reconcileChildren(wipFiber,elements)&#123;</span><br><span class="line">	let index = 0</span><br><span class="line">	let oldFiber = wipFiber.alternate &amp;&amp; wipFiber.alternate.child</span><br><span class="line">	let prevSibling = null</span><br><span class="line"></span><br><span class="line">	while(index &lt; elements.length || oldFiber !== null)&#123;</span><br><span class="line">		const element = elements[index]</span><br><span class="line">		let newFiber = null</span><br><span class="line">		const sameType = oldFiber &amp;&amp; element &amp;&amp; oldFiber.type == element.type</span><br><span class="line"></span><br><span class="line">		if(sameType)&#123;</span><br><span class="line">			newFiber = &#123;</span><br><span class="line">				type: oldFiber.type,</span><br><span class="line">				props: element.props,</span><br><span class="line">				dom: oldFiber.dom,</span><br><span class="line">				parent: wipFiber,</span><br><span class="line">				alternate: oldFiber,</span><br><span class="line">				effectTag: &quot;UPDATE&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		if(element &amp;&amp; !sameType)&#123;</span><br><span class="line">			newFiber = &#123;</span><br><span class="line">				type: element.type,</span><br><span class="line">				props: element.props,</span><br><span class="line">				dom: null,</span><br><span class="line">				parent: wipFiber,</span><br><span class="line">				alternate: null,</span><br><span class="line">				effectTag: &quot;PLACEMENT&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		if(oldFiber &amp;&amp; !sameType)&#123;</span><br><span class="line">			oldFiber.effectTag = &quot;DELETE&quot;</span><br><span class="line">			deletions.push(oldFiber)</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		if(index === 0)&#123;</span><br><span class="line">			//如果是第一个，则是 wipFiber 的子节点</span><br><span class="line">			wipFiber.child = newFiber</span><br><span class="line">		&#125;else&#123;</span><br><span class="line">			//其他则是兄弟节点</span><br><span class="line">			prevSibling.sibling = newFiber</span><br><span class="line">		&#125;</span><br><span class="line">		prevSibling = newFiber</span><br><span class="line">		index++</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="更新-DOM节点-的方法"><a href="#更新-DOM节点-的方法" class="headerlink" title="更新 DOM节点 的方法"></a>更新 DOM节点 的方法</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">const isProperty = key =&gt; key !== &#x27;children&#x27;</span><br><span class="line">const isNew = (prev,next) =&gt; key =&gt; prev[key] !== next[key]</span><br><span class="line">const isGone = (prev,next) =&gt; key =&gt; !(key in next)</span><br><span class="line">const isEvent = key =&gt; key.startsWith(&quot;on&quot;)</span><br><span class="line">function updateDom(dom,prevProps,nextProps)&#123;</span><br><span class="line">	//删除旧的事件方法</span><br><span class="line">	Object.keys(prevProps)</span><br><span class="line">		.filter(isEvent)</span><br><span class="line">		.filter(key =&gt; !(key in nextProps) || isNew(prevProps,nextProps)(key))</span><br><span class="line">		.forEach(name =&gt; &#123;</span><br><span class="line">				const eventType = name.toLowerCase().substring(2)</span><br><span class="line">				dom.removeEventListener(eventType,prevProps[name])</span><br><span class="line">			&#125;)</span><br><span class="line"></span><br><span class="line">	//删除不要的属性</span><br><span class="line">	Object.keys(prevProps)</span><br><span class="line">		.filter(isProperty)</span><br><span class="line">		.filter(isGone)</span><br><span class="line">		.forEach(name=&gt;&#123;</span><br><span class="line">				dom[name] = &quot;&quot;</span><br><span class="line">			&#125;)</span><br><span class="line"></span><br><span class="line">	//添加新的事件方法</span><br><span class="line">	Object.keys(nextProps)</span><br><span class="line">		.filter(isEvent)</span><br><span class="line">		.filter(isNew(prevProps,nextProps))</span><br><span class="line">		.forEach(name =&gt; &#123;</span><br><span class="line">				const eventType = name.toLowerCase().substring(2)</span><br><span class="line">				dom.addEventListener(eventType,nextProps[name])</span><br><span class="line">			&#125;)</span><br><span class="line"></span><br><span class="line">	//添加新的属性		</span><br><span class="line">	Object.keys(nextProps)</span><br><span class="line">		.filter(isProperty)</span><br><span class="line">		.filter(isNew(prevProps,nextProps))</span><br><span class="line">		.forEach(name=&gt;&#123;</span><br><span class="line">			//增加新的属性</span><br><span class="line">			dom[name] = nextProps[name]</span><br><span class="line">			&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="updateHostComponent-和-updateFunctionComponent"><a href="#updateHostComponent-和-updateFunctionComponent" class="headerlink" title="updateHostComponent 和 updateFunctionComponent"></a>updateHostComponent 和 updateFunctionComponent</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function updateHostComponent(fiber)&#123;</span><br><span class="line">	if(!fiber.dom)&#123;</span><br><span class="line">		fiber.dom = createDom(fiber)</span><br><span class="line">	&#125;</span><br><span class="line">	reconcileChildren(fiber,fiber.props.children)</span><br><span class="line">&#125;</span><br><span class="line">function updateFunctionComponent(fiber)&#123;</span><br><span class="line">	const children = [fiber.type(fiber.props)]</span><br><span class="line">	reconcileChildren(fiber,children)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="如何添加-Hooks"><a href="#如何添加-Hooks" class="headerlink" title="如何添加 Hooks"></a>如何添加 Hooks</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function Counter()&#123;</span><br><span class="line">	const [state,setState] = React.useState(1)</span><br><span class="line">	return &lt;h1 onClick=&#123;()=&gt;setState(c =&gt; c+1)&#125;&gt;</span><br><span class="line">		Count:&#123;state&#125;</span><br><span class="line">	&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更改 updateFunctionComponent </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">let wipFiber = null</span><br><span class="line">let hookIndex = null</span><br><span class="line">function updateFunctionComponent(fiber)&#123;</span><br><span class="line">	wipFiber = fiber</span><br><span class="line">	hookIndex = 0</span><br><span class="line">	wipFiber.hooks = []</span><br><span class="line">	const children = [fiber.type(fiber.props)]</span><br><span class="line">	reconcileChildren(fiber,children)</span><br><span class="line">&#125;</span><br><span class="line">function useState(initial)&#123;</span><br><span class="line">	const oldHook = wipFiber.alternate &amp;&amp; wipFiber.alternate.hooks &amp;&amp; wipFiber.alternate.hooks[hookIndex]</span><br><span class="line">	const hook = &#123; state: oldHook ? oldHook.state : initial, queue:[]&#125;</span><br><span class="line"></span><br><span class="line">	//如何更新state的值？</span><br><span class="line">	const actions = oldHook ? oldHook.queue : []</span><br><span class="line">	actions.forEach(action =&gt; &#123;</span><br><span class="line">		hook.state = action(hook.state)</span><br><span class="line">		&#125;)</span><br><span class="line"></span><br><span class="line">	const setState = action =&gt; &#123;</span><br><span class="line">		hook.queue.push(action)</span><br><span class="line">		wipRoot = &#123;</span><br><span class="line">			dom: currentRoot.dom,</span><br><span class="line">			props: currentRoot.props,</span><br><span class="line">			alternate: currentRoot,</span><br><span class="line">		&#125;</span><br><span class="line">		nextUnitOfWork = wipRoot</span><br><span class="line">		deletions = []</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	wipFiber.hooks.push(hook)</span><br><span class="line">	hookIndex++</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	return [hook.state]</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/02/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="prev" title="npm常用命令">
+      <i class="fa fa-chevron-left"></i> npm常用命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/13/typescript/" rel="next" title="typescript">
+      typescript <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8React%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AADOM%E5%85%83%E7%B4%A0"><span class="nav-number">1.</span> <span class="nav-text">使用React创建一个DOM元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#React-createElement-%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">React.createElement 方法返回了什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#React-createElement-%E6%96%B9%E6%B3%95%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">React.createElement 方法的具体实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#React-createTextElement-%E6%96%B9%E6%B3%95%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">React.createTextElement 方法的具体实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#React-render-%E6%96%B9%E6%B3%95%E7%9A%84%E5%85%B7%E4%BD%93%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">React.render 方法的具体实现？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3render%E6%97%A0%E6%B3%95%E4%B8%AD%E6%AD%A2%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">如何解决render无法中止的问题？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BA%86%E6%9B%B4%E5%A5%BD%E5%9C%B0%E7%BB%84%E7%BB%87%E5%B7%A5%E4%BD%9C%E5%8D%95%E5%85%83%EF%BC%8C%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-Fiber-Tree"><span class="nav-number">7.</span> <span class="nav-text">为了更好地组织工作单元，我们需要一个数据结构 Fiber Tree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fiber-%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">7.1.</span> <span class="nav-text">Fiber 的结构</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#createDom-%EF%BC%8C%E6%A0%B9%E6%8D%AEFiber%E5%88%9B%E5%BB%BADOM%E8%8A%82%E7%82%B9"><span class="nav-number">8.</span> <span class="nav-text">createDom ，根据Fiber创建DOM节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#performUnitOfWork-%E6%96%B9%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">performUnitOfWork 方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%9C%9F%E6%AD%A3%E5%8E%BB%E6%B7%BB%E5%8A%A0DOM%E8%8A%82%E7%82%B9%EF%BC%9F"><span class="nav-number">10.</span> <span class="nav-text">什么时候真正去添加DOM节点？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%8E%BB%E6%9B%B4%E6%96%B0%E5%92%8C%E5%88%A0%E9%99%A4DOM%E8%8A%82%E7%82%B9%EF%BC%9F%E5%9C%A8-performUnitOfWork-%E6%96%B9%E6%B3%95%E4%B8%AD%E8%B0%83%E7%94%A8-reconcileChildren-%E6%96%B9%E6%B3%95%E5%A4%84%E7%90%86-fiber"><span class="nav-number">11.</span> <span class="nav-text">如何去更新和删除DOM节点？在 performUnitOfWork 方法中调用 reconcileChildren 方法处理 fiber</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-DOM%E8%8A%82%E7%82%B9-%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">12.</span> <span class="nav-text">更新 DOM节点 的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#updateHostComponent-%E5%92%8C-updateFunctionComponent"><span class="nav-number">13.</span> <span class="nav-text">updateHostComponent 和 updateFunctionComponent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%B7%BB%E5%8A%A0-Hooks"><span class="nav-number">14.</span> <span class="nav-text">如何添加 Hooks</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
