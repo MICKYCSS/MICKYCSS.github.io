@@ -145,6 +145,171 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/16/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E7%9A%84%E5%87%A0%E7%A7%8D%E5%9C%BA%E6%99%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/16/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E7%9A%84%E5%87%A0%E7%A7%8D%E5%9C%BA%E6%99%AF/" class="post-title-link" itemprop="url">文件下载的几种场景</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-16 16:48:24" itemprop="dateCreated datePublished" datetime="2021-12-16T16:48:24+08:00">2021-12-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-17 09:28:07" itemprop="dateModified" datetime="2021-12-17T09:28:07+08:00">2021-12-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="了解Blob"><a href="#了解Blob" class="headerlink" title="了解Blob"></a>了解Blob</h2><ol>
+<li>Blob是什么?<br>Blob是表示二进制类型的大对象，它的数据可以按照文本或者二进制格式进行读取</li>
+<li>如何创建Blob对象<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//接收两个参数 blobParts 和 options</span><br><span class="line">// blobParts  由 ArrayBuffer，ArrayBufferView，Blob，DOMString 等对象构成的数组</span><br><span class="line">// options 可选参数</span><br><span class="line">const b = new Blob(blobParts,options)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="了解Blob-URL"><a href="#了解Blob-URL" class="headerlink" title="了解Blob URL"></a>了解Blob URL</h2><p>Blob URL/Object URL 是伪协议，这个协议的作用就是允许 Blob 对象或者 File 对象用来作为下载的url源</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">URL.createObjectURL(new Blob())</span><br><span class="line">// 但是该方法存在副作用，存储了 URL-&gt; Blob对象的映射，需要在使用后清除</span><br><span class="line">URL.revokeObjectURL(url) </span><br></pre></td></tr></table></figure>
+<h2 id="url-转换为-blob对象"><a href="#url-转换为-blob对象" class="headerlink" title="url 转换为 blob对象"></a>url 转换为 blob对象</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function dataUrlToBlob(url)&#123;</span><br><span class="line">  const picUrl = `$&#123;url&#125;?t=$&#123;new Date().getTime()&#125;`</span><br><span class="line">  return fetch(picUrl,&#123;</span><br><span class="line">    headers: new Headers(&#123; Origin: window.location.origin &#125;),</span><br><span class="line">    mode: &#x27;cors&#x27;,</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(res =&gt; res.blob())</span><br><span class="line">  .catch(error =&gt; console.log(error))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="a标签下载方式"><a href="#a标签下载方式" class="headerlink" title="a标签下载方式"></a>a标签下载方式</h1><p>原理：设置 a 标签的 download 属性，结合 URL.createObjectURL 方法设置 a 标签的 href 属性c<br>问题：download 属性存在兼容性问题，IE11以下不适用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function  downloadFileByHTMLAnchorElement(blob,fileName)&#123;</span><br><span class="line">  const url = URL.createObjectURL(blob)</span><br><span class="line">  const a = document.createElement(&#x27;a&#x27;)</span><br><span class="line">  a.download = fileName</span><br><span class="line">  a.style.display = &#x27;none&#x27;</span><br><span class="line">  a.target = &#x27;blank&#x27;</span><br><span class="line">  a.href = url</span><br><span class="line">  document.body.appendChild(a)</span><br><span class="line">  a.click()</span><br><span class="line">  document.body.removeChild(a)</span><br><span class="line">  URL.revokeObjectURL(url)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="showSaveFilePicker-API-下载"><a href="#showSaveFilePicker-API-下载" class="headerlink" title="showSaveFilePicker API 下载"></a>showSaveFilePicker API 下载</h1><p>原理：利用 window 内置的 showSaveFilePicker 方法，可以选择存放图片的位置<br>问题：兼容性不是很好</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">async function saveFile(blob,fileName)&#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    const handle = await window.showSaveFilePicker(&#123;</span><br><span class="line">      suggestedName: fileName,</span><br><span class="line">      types: [</span><br><span class="line">        &#123;</span><br><span class="line">          description: &quot;PNG file&quot;,</span><br><span class="line">          accept: &#123;</span><br><span class="line">            &quot;image/png&quot;: [&quot;.png&quot;],</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          description: &quot;Jpeg file&quot;,</span><br><span class="line">          accept: &#123;</span><br><span class="line">            &quot;image/jpeg&quot;: [&quot;.jpeg&quot;],</span><br><span class="line">          &#125;,</span><br><span class="line">         &#125;,</span><br><span class="line">      ]</span><br><span class="line">    &#125;)</span><br><span class="line">    const writable = await handle.createWritable()</span><br><span class="line">    await writable.write(blob)</span><br><span class="line">    await writable.close()</span><br><span class="line">    return handle</span><br><span class="line">  &#125; catch (error) &#123;</span><br><span class="line">    console.error(err.name, err.message)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="FileSaver-js-下载"><a href="#FileSaver-js-下载" class="headerlink" title="FileSaver.js 下载"></a>FileSaver.js 下载</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//需要引入 FileSaver.js</span><br><span class="line">//1. 保存文本</span><br><span class="line">let blob = new Blob([&quot;hello&quot;], &#123; type: &quot;text/plain;charset=utf-8&quot; &#125;);</span><br><span class="line">saveAs(blob, &quot;hello.txt&quot;)</span><br><span class="line"></span><br><span class="line">//2. 保存线上资源</span><br><span class="line">saveAs(&quot;https://httpbin.org/image&quot;, &quot;image.jpg&quot;)</span><br><span class="line"></span><br><span class="line">//3. 保存canvas画布功能</span><br><span class="line">const canvas = document.getElementById(&quot;canvas&quot;)</span><br><span class="line">canvas.toBlob((blob) =&gt; &#123;</span><br><span class="line">	saveAs(blob,&#x27;test.png&#x27;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h1 id="Zip-下载"><a href="#Zip-下载" class="headerlink" title="Zip 下载"></a>Zip 下载</h1><p>原理：利用 JSZip 和 FileSaver 将文件打包后再下载</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function downloadByJSZip(imageUrls)&#123;</span><br><span class="line">  let zip = new JSZip()</span><br><span class="line">  Promise.all(imageUrls.map(getFileContent)).then((contents) =&gt; &#123;</span><br><span class="line">    contents.forEach((content, i) =&gt; &#123;</span><br><span class="line">      zip.file(imageUrls[i], content)</span><br><span class="line">    &#125;)</span><br><span class="line">    zip.generateAsync(&#123; type: &quot;blob&quot; &#125;).then(function (blob) &#123;</span><br><span class="line">      saveAs(blob, &quot;material.zip&quot;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">function getFileContent(fileUrl) &#123;</span><br><span class="line">  return new JSZip.external.Promise(function (resolve, reject) &#123;</span><br><span class="line">    JSZipUtils.getBinaryContent(fileUrl, function (err, data) &#123;</span><br><span class="line">      if (err) &#123;</span><br><span class="line">        reject(err)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        resolve(data)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6989413354628448264#heading-7">https://juejin.cn/post/6989413354628448264#heading-7</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/14/typescript%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/14/typescript%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7/" class="post-title-link" itemprop="url">typescript高级技巧</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-14 15:52:50" itemprop="dateCreated datePublished" datetime="2021-12-14T15:52:50+08:00">2021-12-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-15 09:57:42" itemprop="dateModified" datetime="2021-12-15T09:57:42+08:00">2021-12-15</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="keyof"><a href="#keyof" class="headerlink" title="keyof"></a>keyof</h1><p>keyof 与 Object.keys() 相似，但是 keyof 取的是 interface 的键</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">interface Point&#123;</span><br><span class="line">	x: number</span><br><span class="line">	y: number</span><br><span class="line">&#125;</span><br><span class="line">type keys = &#x27;x&#x27; | &#x27;y&#x27;</span><br><span class="line">//等同于</span><br><span class="line">type keys = keyof Point</span><br></pre></td></tr></table></figure>
+<p>假设有一个object，我们要获取object的某个值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function get(o: object,name: string)&#123;</span><br><span class="line">	return o[name]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是以上方法存在两个问题</p>
+<ol>
+<li>无法确定返回的类型</li>
+<li>没有对键进行限制<br>使用keyof重写<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function get&lt;T extends Object,K extends keyof T&gt;(o: T,name: K):T[K]&#123;</span><br><span class="line">	return o[name]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+对于 keyof 的另一个使用方法<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">type PropertyName = keyof any</span><br><span class="line">//等同于</span><br><span class="line">type PropertyName = string | number | symbol</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="Required-amp-Partial-amp-Pick"><a href="#Required-amp-Partial-amp-Pick" class="headerlink" title="Required &amp; Partial &amp; Pick"></a>Required &amp; Partial &amp; Pick</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">type Partial&lt;T&gt; = &#123;</span><br><span class="line">	[P in keyof T]?: T[P]</span><br><span class="line">&#125;</span><br><span class="line">type Required&lt;T&gt; = &#123;</span><br><span class="line">	[P in keyof T]-?: T[P]</span><br><span class="line">&#125;</span><br><span class="line">type Pick&lt;T,K in keyof T&gt; = &#123;</span><br><span class="line">	[P in K]: T[P]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">interface User&#123;</span><br><span class="line">	id: number</span><br><span class="line">	name: string</span><br><span class="line">	age: number</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 等同于 &#123;id?:number, name?:string, age?:number&#125;</span><br><span class="line">type PartialUser = Partial&lt;User&gt;</span><br><span class="line"></span><br><span class="line">// 等于 &#123;name:string, age:number&#125;</span><br><span class="line">type PickUser = Pick&lt;User,&#x27;age&#x27; | &#x27;name&#x27;&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="Condition-Type"><a href="#Condition-Type" class="headerlink" title="Condition Type"></a>Condition Type</h1><p>可以扩展一些基本类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">type isTrue&lt;T&gt; = T extends true ? true : false</span><br><span class="line">//相当于type t = false</span><br><span class="line">type t = isTrue&lt;number&gt;</span><br><span class="line">//相当于type t = false</span><br><span class="line">type t = isTrue&lt;false&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="never-amp-Exclude-amp-Extract-amp-Omit"><a href="#never-amp-Exclude-amp-Extract-amp-Omit" class="headerlink" title="never &amp; Exclude &amp; Extract &amp; Omit"></a>never &amp; Exclude &amp; Extract &amp; Omit</h1><p>never 结合  Condition Type 可以推出很多实用的类型例如 Exclude 和 Extract 【与Exclude相反，是取交集】</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">type Exclude&lt;T,U&gt; = T extends U ? never : T</span><br><span class="line">//相当于type A = &#x27;x&#x27;</span><br><span class="line">type A =  Exclude&lt;&#x27;x&#x27; | &#x27;a&#x27;, &#x27;a&#x27;&gt;</span><br><span class="line"></span><br><span class="line">//type B = &#x27;x&#x27;</span><br><span class="line">type B = Extract&lt;&#x27;x&#x27; | &#x27;a&#x27;, &#x27;x&#x27; | &#x27;y&#x27;&gt;</span><br><span class="line"></span><br><span class="line">//通过 Exclude 推出 Omit的写法</span><br><span class="line">type Omit&lt;T, K extends keyof T&gt; = Pick&lt;T,Exclude&lt;keyof T,K&gt;&gt;</span><br><span class="line"></span><br><span class="line">//相当于type C = &#123; name:string, age:number &#125;</span><br><span class="line">type C = Omit&lt;User,&#x27;id&#x27;&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="interface-和-type-的区别"><a href="#interface-和-type-的区别" class="headerlink" title="interface 和 type 的区别"></a>interface 和 type 的区别</h1><ol>
+<li>定义一个函数<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">interface SetPoint&#123;</span><br><span class="line">	(x: number,y: number) =&gt; void</span><br><span class="line">&#125;</span><br><span class="line">type SetPoint = (x: number,y: number) =&gt; void</span><br></pre></td></tr></table></figure></li>
+<li>向外拓展<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">interface PartialPointX&#123; x: number &#125;</span><br><span class="line">interface Point extends PartialPointX&#123; y:number &#125;</span><br><span class="line"></span><br><span class="line">type PartialPointX = &#123; x: number &#125;</span><br><span class="line">type Point = PartialPointX &amp; &#123; y: number &#125;</span><br></pre></td></tr></table></figure></li>
+<li>interface 可以定义合并<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">interface Point&#123; x: number &#125;</span><br><span class="line">interface Point&#123; y: number &#125;</span><br><span class="line">const p:Point = &#123; x: 3, y: 4 &#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="Record-amp-Dictionary-amp-Many"><a href="#Record-amp-Dictionary-amp-Many" class="headerlink" title="Record &amp; Dictionary &amp; Many"></a>Record &amp; Dictionary &amp; Many</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">type Record&lt;K extends keyof any,T&gt; = &#123;</span><br><span class="line">	[P in K]:T</span><br><span class="line">&#125;</span><br><span class="line">interface Dictionary&lt;T&gt;&#123;</span><br><span class="line">	[index: string]:T</span><br><span class="line">&#125;</span><br><span class="line">//以下二者等价</span><br><span class="line">type A = Record&lt;string,any&gt;</span><br><span class="line">type A = Dictionary&lt;any&gt;</span><br></pre></td></tr></table></figure>
+<h1 id="infer-amp-ReturnType-amp-Parameters"><a href="#infer-amp-ReturnType-amp-Parameters" class="headerlink" title="infer &amp; ReturnType &amp; Parameters"></a>infer &amp; ReturnType &amp; Parameters</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// infer 用于 推出泛型</span><br><span class="line">//相当于 type A = string</span><br><span class="line">type A = ReturnType&lt;()=&gt;string&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/13/typescript/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -589,7 +754,7 @@
 <ol start="4">
 <li>config文件具体配置，HostName为git地址冒号前的内容<br>如果没有配置config文件，会出现以下报错<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> // 如果Host和HostName配置错误也会出现下面的错误</span><br><span class="line"> Permission denied (publickey)</span><br><span class="line"> // 使用以下命令可以查看具体连接,查看Offering public key是否使用了正确的私钥</span><br><span class="line"> ssh -vvvT git@gitlab.com</span><br><span class="line">&lt;!--  但是在使用sudo hexo d的时候依旧报denied的错误，是因为sudo命令是去/root/.ssh下去寻找秘钥，找不到的时候就会报错</span><br><span class="line"> 这种情况下可以创建文件夹，也可以使用以下命令去掉sudo --&gt; </span><br><span class="line"> sudo chmod -R 777 ./blog</span><br></pre></td></tr></table></figure>
 config具体配置如下<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Host gitlab</span><br><span class="line">    User git  </span><br><span class="line">    HostName git@gitlab.zhiyitech.cn</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Host github.com</span><br><span class="line">    User git  </span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_mine</span><br></pre></td></tr></table></figure></li>
-<li>校验是否成功的时候报错，执行命令ssh -T <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x6c;&#97;&#x62;&#46;&#122;&#104;&#105;&#121;&#x69;&#116;&#101;&#99;&#x68;&#x2e;&#99;&#x6e;">&#103;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x6c;&#97;&#x62;&#46;&#122;&#104;&#105;&#121;&#x69;&#116;&#101;&#99;&#x68;&#x2e;&#99;&#x6e;</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh:The ECDSA host key for gitlab.317hu.com has changed</span><br></pre></td></tr></table></figure>
+<li>校验是否成功的时候报错，执行命令ssh -T <a href="mailto:&#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#108;&#97;&#x62;&#46;&#122;&#x68;&#105;&#121;&#x69;&#x74;&#101;&#x63;&#104;&#x2e;&#x63;&#x6e;">&#103;&#105;&#x74;&#x40;&#103;&#105;&#x74;&#108;&#97;&#x62;&#46;&#122;&#x68;&#105;&#121;&#x69;&#x74;&#101;&#x63;&#104;&#x2e;&#x63;&#x6e;</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh:The ECDSA host key for gitlab.317hu.com has changed</span><br></pre></td></tr></table></figure>
 解决方法：删除~/.ssh文件夹下的known_hosts文件，重新按照第一个步骤生成ssh key</li>
 <li>hexo部署到github之后报错<br>解决方法：新建文件夹名称的时候报错，名称必须为用户名.github.io，同时修改项目中_config.yml文件的配置</li>
 </ol>
@@ -744,7 +909,7 @@ config具体配置如下<figure class="highlight plaintext"><table><tr><td class
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
