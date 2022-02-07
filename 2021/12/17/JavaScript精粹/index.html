@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="第三章 对象对象字面量一个对象字面量就是包含在花括号中的多个键值对，如果属性名是合法的，不强制使用””包裹，如果是非合法的，则必须用”” 123456const person &#x3D; &amp;#123;	name: &amp;#x27;wansui&amp;#x27;,	age: 1,	&quot;first-name&quot;: &amp;#x27;huahua&amp;#x27;,	firt_name: &quot;fafa&amp;quo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript精粹">
+<meta property="og:url" content="http://example.com/2021/12/17/JavaScript%E7%B2%BE%E7%B2%B9/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="第三章 对象对象字面量一个对象字面量就是包含在花括号中的多个键值对，如果属性名是合法的，不强制使用””包裹，如果是非合法的，则必须用”” 123456const person &#x3D; &amp;#123;	name: &amp;#x27;wansui&amp;#x27;,	age: 1,	&quot;first-name&quot;: &amp;#x27;huahua&amp;#x27;,	firt_name: &quot;fafa&amp;quo">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-17T02:36:41.000Z">
+<meta property="article:modified_time" content="2021-12-20T01:29:10.503Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/12/17/JavaScript%E7%B2%BE%E7%B2%B9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>JavaScript精粹 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/17/JavaScript%E7%B2%BE%E7%B2%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaScript精粹
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-12-17 10:36:41" itemprop="dateCreated datePublished" datetime="2021-12-17T10:36:41+08:00">2021-12-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-12-20 09:29:10" itemprop="dateModified" datetime="2021-12-20T09:29:10+08:00">2021-12-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="第三章-对象"><a href="#第三章-对象" class="headerlink" title="第三章 对象"></a>第三章 对象</h1><h2 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h2><p>一个对象字面量就是包含在花括号中的多个键值对，如果属性名是合法的，不强制使用””包裹，如果是非合法的，则必须用””</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const person = &#123;</span><br><span class="line">	name: &#x27;wansui&#x27;,</span><br><span class="line">	age: 1,</span><br><span class="line">	&quot;first-name&quot;: &#x27;huahua&#x27;,</span><br><span class="line">	firt_name: &quot;fafa&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="检索"><a href="#检索" class="headerlink" title="检索"></a>检索</h2><p>可以使用 . 或者 [] 的方法从对象中取值 </p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>如果属性名已存在则更新，不存在则被扩充到对象中</p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>对象通过引用来传递，不会被复制</p>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>每个对象都连接到一个圆形对象，通过字面量创建的对象连接到 Object.prototype<br>原型连接只有在检索值的时候才会用到，如果对象中不存在某个属性，则到原型对象中去寻找这个属性</p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>检查对象是否具有某种属性</p>
+<ol>
+<li>使用 typeof 判断对象的类型</li>
+<li>使用 hasOwnProperty 方法</li>
+</ol>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>使用 for in 可遍历对象中的属性，缺点是不会按照顺序遍历<br>如果想要按照顺序遍历，建议使用 for 循环</p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>使用 delete 删除对象中的属性，这种删除不会删除掉原型对象中的属性</p>
+<h1 id="第四章-函数"><a href="#第四章-函数" class="headerlink" title="第四章 函数"></a>第四章 函数</h1><h2 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h2><p>函数对象连接到的原型是 Function.prototype ，函数的与众不同在于能被调用</p>
+<h2 id="函数字面量"><a href="#函数字面量" class="headerlink" title="函数字面量"></a>函数字面量</h2><p>函数字面量包括四个部分</p>
+<ol>
+<li>function 保留字</li>
+<li>函数名称，被省略的就是匿名函数</li>
+<li>函数入参 a 和 b</li>
+<li>函数主体<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const add = function (a, b)&#123;</span><br><span class="line">	return a + b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="函数调用"><a href="#函数调用" class="headerlink" title="函数调用"></a>函数调用</h2><p>在调用函数的时候，除了声明时定义的形参，每个函数还接受两个附加参数 this 和 arguments，参数 this 的值取决于调用模式<br>调用运算符是跟在函数值表达式后面的圆括号，圆括号内包含0个或者多个表达式，用逗号隔开</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function test(name)&#123;</span><br><span class="line">	console.log(name)</span><br><span class="line">&#125;</span><br><span class="line">test(1+&#x27;hahah&#x27;) // 1hahah</span><br></pre></td></tr></table></figure>
+<h3 id="方法调用模式"><a href="#方法调用模式" class="headerlink" title="方法调用模式"></a>方法调用模式</h3><p>当一个函数被保存为一个对象的属性时，称之为方法，此时的 this 指向对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">	value:0,</span><br><span class="line">	increment: function()&#123;</span><br><span class="line">		this.value++</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.increment() //obj.value为1</span><br></pre></td></tr></table></figure>
+<h3 id="函数调用模式"><a href="#函数调用模式" class="headerlink" title="函数调用模式"></a>函数调用模式</h3><p>当一个函数并非一个对象的属性时，是被当做一个函数来调用，此时 this 绑定到全局对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">const obj = &#123;</span><br><span class="line">	value: 0,</span><br><span class="line">	increment: function()&#123;</span><br><span class="line">		const help = function()&#123;</span><br><span class="line">			this.value++</span><br><span class="line">		&#125;</span><br><span class="line">		help()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.increment()//此时的obj.value仍然为0</span><br><span class="line"></span><br><span class="line">//解决方法</span><br><span class="line">const obj = &#123;</span><br><span class="line">	value: 0,</span><br><span class="line">	increment: function()&#123;</span><br><span class="line">		const that = this // 获取obj对象</span><br><span class="line">		const help = function()&#123;</span><br><span class="line">			that.value++</span><br><span class="line">		&#125;</span><br><span class="line">		help()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.increment()//此时的obj.value为1</span><br></pre></td></tr></table></figure>
+<h3 id="构造器调用模式"><a href="#构造器调用模式" class="headerlink" title="构造器调用模式"></a>构造器调用模式</h3><p>一个函数，如果创建的目的就是希望结合 new 前缀来调用，称之为构造函数<br>如果一个函数前面带上 new 来调用，那么背地里就会连接到该函数的prototype</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const Person = function(name)&#123;</span><br><span class="line">	this.name = name</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.getName = function()&#123;</span><br><span class="line">	return this.name</span><br><span class="line">&#125;</span><br><span class="line">const p = new Person(&quot;wansui&quot;)</span><br><span class="line">p.getName() //wansui</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="apply调用模式"><a href="#apply调用模式" class="headerlink" title="apply调用模式"></a>apply调用模式</h3><p>apply 接收两个参数，一个是 this 值，另一个是参数数组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person.prototype.getName.apply(&#123;name:&quot;hahhah&quot;&#125;) //hahhah</span><br></pre></td></tr></table></figure>
+<h2 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h2><p>函数被调用的时候，会得到一个 arguments 类数组，这个类数组里面具有参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function sum()&#123;</span><br><span class="line">	let sum = 0</span><br><span class="line">	for(let i = 0;i &lt; arguments.length; i++)&#123;</span><br><span class="line">		sum += arguments[i]</span><br><span class="line">	&#125;</span><br><span class="line">	return sum</span><br><span class="line">&#125;</span><br><span class="line">sum(1,2,3) //6</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="返回"><a href="#返回" class="headerlink" title="返回"></a>返回</h2><p>一个函数总会有一个返回值，如果没有返回值，则返回 undefined<br>如果函数调用前面加上了 new 前缀，那么返回值为新创建的对象</p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>使用 try catch 捕捉 throw 抛出的错误</p>
+<h2 id="扩充类型的功能"><a href="#扩充类型的功能" class="headerlink" title="扩充类型的功能"></a>扩充类型的功能</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.method = function(name, func)&#123;</span><br><span class="line">	if(!this.prototype[name])&#123;</span><br><span class="line">		this.prototype[name] = func</span><br><span class="line">	&#125;</span><br><span class="line">	return this</span><br><span class="line">&#125;</span><br><span class="line">Number.method(&#x27;integer&#x27;,function()&#123;&#125;)</span><br><span class="line">String.method(&#x27;trim&#x27;,function()&#123;&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>递归函数就是会直接或者间接调用自身的一种函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">//汉诺塔递归 如何理解汉诺塔递归：https://www.zhihu.com/question/24385418</span><br><span class="line">function hanoi(disc, src, aux, dst)&#123;</span><br><span class="line">	//src当前柱、aux中转柱、dst目标柱子</span><br><span class="line">	if(disc&gt;0)&#123;</span><br><span class="line">		hanoi(disc - 1,src, dst, aux) // 把除了底座的其他圆盘从原始柱移动到中转柱</span><br><span class="line">		console.log(&#x27;Move disc&#x27; + disc + &#x27;from&#x27; + src + &#x27;to&#x27; + dst )</span><br><span class="line">		hanoi(disc - 1,aux, src, dst) // 把除了底座的其他圆盘从中专注移动到目标柱</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">hanoi(3, &#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27;)</span><br><span class="line">&lt;!--</span><br><span class="line">	有一个圆盘，从A移动到C hanoi(1,&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;)</span><br><span class="line"></span><br><span class="line">	有两个圆盘</span><br><span class="line">		小圆盘从 A 移动到 B hanoi(1,&#x27;A&#x27;,&#x27;C&#x27;,&#x27;B&#x27;)</span><br><span class="line">		大圆盘从 A 移动到 C hanoi(1,&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;)</span><br><span class="line">		小圆盘从 B 移动到 C hanoi(1,&#x27;B&#x27;,&#x27;A&#x27;,&#x27;C&#x27;)</span><br><span class="line"></span><br><span class="line">	有三个圆盘</span><br><span class="line">		hanoi(1,&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;)</span><br><span class="line">		hanoi(1,&#x27;A&#x27;,&#x27;C&#x27;,&#x27;B&#x27;)</span><br><span class="line">		hanoi(1,&#x27;C&#x27;,&#x27;A&#x27;,&#x27;B&#x27;)</span><br><span class="line">		hanoi(1,&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;)</span><br><span class="line">		hanoi(1,&#x27;B&#x27;,&#x27;C&#x27;,&#x27;A&#x27;)</span><br><span class="line">		hanoi(1,&#x27;B&#x27;,&#x27;A&#x27;,&#x27;C&#x27;)</span><br><span class="line">		hanoi(1,&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;)</span><br><span class="line">	三个圆盘的移动情况相当于</span><br><span class="line">		先把除了底座的两个小圆盘从 A 移动到 B hanoi(2,&#x27;A&#x27;,&#x27;C&#x27;,&#x27;B&#x27;)</span><br><span class="line">		再把圆盘从 B 移动到 C  hanoi(2,&#x27;B&#x27;,&#x27;A&#x27;,&#x27;C&#x27;)</span><br><span class="line"></span><br><span class="line"> --&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="什么是尾递归调用？"><a href="#什么是尾递归调用？" class="headerlink" title="什么是尾递归调用？"></a>什么是尾递归调用？</h3><p>函数调用自身成为递归，如果一个函数返回自身递归调用的结果就是尾递归</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//递归实现阶乘函数</span><br><span class="line">function factorial(n) &#123;</span><br><span class="line">  if (n === 1) return 1;</span><br><span class="line">  return n * factorial(n - 1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//尾递归实现阶乘函数</span><br><span class="line">function factorial(n, total) &#123;</span><br><span class="line">  if (n === 1) return total;</span><br><span class="line">  return factorial(n - 1, n * total);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>JavaScript是函数作用域，意味着定义在函数中的参数和变量在函数外部是不可见的</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>内部函数比外部函数拥有更长的生命周期</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const obj = (function()&#123;</span><br><span class="line">		let value = 1</span><br><span class="line">		return &#123;</span><br><span class="line">			increment:function()&#123;</span><br><span class="line">				value++</span><br><span class="line">			&#125;,</span><br><span class="line">			getValue:function()&#123;</span><br><span class="line">				return value</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;)()</span><br><span class="line">obj.increment()</span><br><span class="line">obj.getValue()//输出2</span><br></pre></td></tr></table></figure>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>使用函数和闭包构造模块，模块模式的形式是</p>
+<ol>
+<li>定义了私有变量和函数的函数</li>
+<li>利用闭包可以访问私有变量和特权函数的特性</li>
+<li>将特权函数返回，或者是保存<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//生成序列号</span><br><span class="line">const serial_maker = function()&#123;</span><br><span class="line">	let prefix = &#x27;&#x27;</span><br><span class="line">	let seq = 0</span><br><span class="line">	return&#123;</span><br><span class="line">		set_prefix:function(p)&#123;</span><br><span class="line">			prefix = p</span><br><span class="line">		&#125;,</span><br><span class="line">		set_seq:function(s)&#123;</span><br><span class="line">			seq = s</span><br><span class="line">		&#125;,</span><br><span class="line">		gensym:function()&#123;</span><br><span class="line">			return prefix + seq</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//maker只能通过 set_prefix 和 set_seq 方法修改 prefix 和 seq的值</span><br><span class="line">const maker = serial_maker()</span><br><span class="line">maker.set_prefix(&#x27;K&#x27;)</span><br><span class="line">maker.set_seq(0)</span><br><span class="line">maker.gensym()//K0</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="级联"><a href="#级联" class="headerlink" title="级联"></a>级联</h2><p>给一些设置或者修改对象的某个状态却没有返回值的方法返回this，实现级联</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//例如</span><br><span class="line">getElement(&#x27;box&#x27;)</span><br><span class="line">	.move()</span><br><span class="line">	.height()</span><br><span class="line">	.color()</span><br></pre></td></tr></table></figure>
+<h2 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h2><p>就是把函数的多个参数转换为多个单一参数的函数调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function add(x, y)&#123;</span><br><span class="line">	return x + y</span><br><span class="line">&#125;</span><br><span class="line">function curryAdd(x)&#123;</span><br><span class="line">	return function(y)&#123;</span><br><span class="line">		return x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">const add1 = curryAdd(1)</span><br><span class="line">add1(6) //7</span><br><span class="line"></span><br><span class="line">function curryingCheck(reg) &#123;</span><br><span class="line">    return function(txt) &#123;</span><br><span class="line">        return reg.test(txt)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const hasNumber = curryingCheck(/\d+/g)</span><br><span class="line">const hasLetter = curryingCheck(/[a-z]+/g)</span><br><span class="line"></span><br><span class="line">hasNumber(333)</span><br><span class="line">hasLetter(&#x27;kasjkasn&#x27;)</span><br></pre></td></tr></table></figure>
+<h2 id="记忆"><a href="#记忆" class="headerlink" title="记忆"></a>记忆</h2><p>函数可以将之前的结果存在 memo 数组中，减少不必要的运算</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const fibonacci = (function()&#123;</span><br><span class="line">	const memo = [0,1]</span><br><span class="line">	const fib = function(n)&#123;</span><br><span class="line">		let result = memo[n]</span><br><span class="line">		if(typeof result !== &#x27;number&#x27;)&#123;</span><br><span class="line">			result = fib(n-1) + fib(n-2)</span><br><span class="line">			memo[n] = result</span><br><span class="line">		&#125;</span><br><span class="line">		return result</span><br><span class="line">	&#125;</span><br><span class="line">	return fib</span><br><span class="line">&#125;)()</span><br><span class="line">fibonacci(4) //3 </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="第五章-继承"><a href="#第五章-继承" class="headerlink" title="第五章 继承"></a>第五章 继承</h2><h3 id="原型-1"><a href="#原型-1" class="headerlink" title="原型"></a>原型</h3><p>在纯粹的原型模式中摒弃类，专注于对象</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const mamal = &#123;</span><br><span class="line">	name: &#x27;mamal&#x27;,</span><br><span class="line">	get_name: function()&#123;</span><br><span class="line">		return this.name</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">const cat = Object.create(mamal) // 设置原型为mamal</span><br><span class="line">mamal.say_hello = function()&#123;console.log(&#x27;hello&#x27;)&#125;</span><br><span class="line">cat.say_hello() // hello</span><br></pre></td></tr></table></figure>
+<h3 id="函数化"><a href="#函数化" class="headerlink" title="函数化"></a>函数化</h3><p>继承模式的弱点是无法保护隐私，可以自定义函数返回对象</p>
+<h2 id="第六章-数组"><a href="#第六章-数组" class="headerlink" title="第六章 数组"></a>第六章 数组</h2><h3 id="长度"><a href="#长度" class="headerlink" title="长度"></a>长度</h3><ol>
+<li>length 没有上界 arr[1000] 也不会报错</li>
+<li>设置更大的 length 不会分配更多空间</li>
+<li>设置更小的 length 会把新的length属性删除</li>
+</ol>
+<h2 id="第七章-正则表达式"><a href="#第七章-正则表达式" class="headerlink" title="第七章 正则表达式"></a>第七章 正则表达式</h2><h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>匹配 url 的正则表达式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 非捕获分组1 括号中?:开头 --&gt;</span><br><span class="line">(?:([A-Za-z]+):)?</span><br><span class="line">&lt;!-- 捕获分组1 --&gt;</span><br><span class="line">(/\&#123;0,3&#125;)</span><br><span class="line">&lt;!-- 捕获分组2 --&gt;</span><br><span class="line">([0-9.\-A-Za-z]+)</span><br><span class="line">&lt;!-- 非捕获分组2 --&gt;</span><br><span class="line">(?::(\d+))?</span><br><span class="line">&lt;!-- 非捕获分组3 --&gt;</span><br><span class="line">(?:\/([^?#]*))?</span><br><span class="line">&lt;!-- 非捕获分组4 --&gt;</span><br><span class="line">(?:\?([^#]*))?</span><br><span class="line">&lt;!-- 非捕获分组5 --&gt;</span><br><span class="line">(?:#(.*))?</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/16/%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD%E7%9A%84%E5%87%A0%E7%A7%8D%E5%9C%BA%E6%99%AF/" rel="prev" title="文件下载的几种场景">
+      <i class="fa fa-chevron-left"></i> 文件下载的几种场景
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/01/11/Form%E8%A1%A8%E5%8D%95%E5%8E%9F%E7%90%86/" rel="next" title="Form表单原理">
+      Form表单原理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">第三章 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">对象字面量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E7%B4%A2"><span class="nav-number">1.2.</span> <span class="nav-text">检索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0"><span class="nav-number">1.3.</span> <span class="nav-text">更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B"><span class="nav-number">1.5.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%B0%84"><span class="nav-number">1.6.</span> <span class="nav-text">反射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.7.</span> <span class="nav-text">枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4"><span class="nav-number">1.8.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">第四章 函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.1.</span> <span class="nav-text">函数对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">2.2.</span> <span class="nav-text">函数字面量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="nav-number">2.3.</span> <span class="nav-text">函数调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.3.1.</span> <span class="nav-text">方法调用模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.3.2.</span> <span class="nav-text">函数调用模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E8%B0%83%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.3.3.</span> <span class="nav-text">构造器调用模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply%E8%B0%83%E7%94%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.3.4.</span> <span class="nav-text">apply调用模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#arguments"><span class="nav-number">2.4.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E"><span class="nav-number">2.5.</span> <span class="nav-text">返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8"><span class="nav-number">2.6.</span> <span class="nav-text">异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%85%85%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">2.7.</span> <span class="nav-text">扩充类型的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">2.8.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%BE%E9%80%92%E5%BD%92%E8%B0%83%E7%94%A8%EF%BC%9F"><span class="nav-number">2.8.1.</span> <span class="nav-text">什么是尾递归调用？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">2.9.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AD%E5%8C%85"><span class="nav-number">2.10.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97"><span class="nav-number">2.11.</span> <span class="nav-text">模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A7%E8%81%94"><span class="nav-number">2.12.</span> <span class="nav-text">级联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96"><span class="nav-number">2.13.</span> <span class="nav-text">函数柯里化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B0%E5%BF%86"><span class="nav-number">2.14.</span> <span class="nav-text">记忆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E7%AB%A0-%E7%BB%A7%E6%89%BF"><span class="nav-number">2.15.</span> <span class="nav-text">第五章 继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9E%8B-1"><span class="nav-number">2.15.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8C%96"><span class="nav-number">2.15.2.</span> <span class="nav-text">函数化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0-%E6%95%B0%E7%BB%84"><span class="nav-number">2.16.</span> <span class="nav-text">第六章 数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%BF%E5%BA%A6"><span class="nav-number">2.16.1.</span> <span class="nav-text">长度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%83%E7%AB%A0-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.17.</span> <span class="nav-text">第七章 正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">2.17.1.</span> <span class="nav-text">一个例子</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
