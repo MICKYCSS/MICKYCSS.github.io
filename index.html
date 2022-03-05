@@ -145,6 +145,88 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/03/canvas%E7%BB%98%E5%88%B6dom/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/03/03/canvas%E7%BB%98%E5%88%B6dom/" class="post-title-link" itemprop="url">canvas绘制dom</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-03-03 15:36:39" itemprop="dateCreated datePublished" datetime="2022-03-03T15:36:39+08:00">2022-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-03-05 10:56:59" itemprop="dateModified" datetime="2022-03-05T10:56:59+08:00">2022-03-05</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="实现思路倒推"><a href="#实现思路倒推" class="headerlink" title="实现思路倒推"></a>实现思路倒推</h2><ol>
+<li>绘制canvas需要一张图片进行转换，图片从哪里来？</li>
+<li>图片是由 svg 元素转换而来，src格式为 data:image /svg+xml SVGDomElement;svg元素从哪里来？</li>
+<li>svg中包含 foreignObject 元素，里面的内容需要 XHTML;XHTML从哪里来?</li>
+<li>通过 XMLSerializer 方法将 HTML 元素序列化为 XHTML;HTML从哪里来</li>
+<li>HTML从传入的DOM转换而来，并且需要遍历、处理样式、处理图片</li>
+</ol>
+<h2 id="正向实现"><a href="#正向实现" class="headerlink" title="正向实现"></a>正向实现</h2><ol>
+<li>获得 HTML，需要遍历DOM树的方法</li>
+<li>处理样式</li>
+<li>处理图片</li>
+<li>创建 XHTML</li>
+<li>创建 SVGDomElement</li>
+<li>创建图片</li>
+<li>创建 canvas</li>
+</ol>
+<h2 id="工具方法"><a href="#工具方法" class="headerlink" title="工具方法"></a>工具方法</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">/** 遍历DOM Tree */</span><br><span class="line">export const DFSDomTraversal = (root:HTMLElement):HTMLElement[] | undefined =&gt; &#123;</span><br><span class="line">  if (!root) return</span><br><span class="line"></span><br><span class="line">  const arr:HTMLElement[] = []</span><br><span class="line">  const queue = [root]</span><br><span class="line">  let node:any = queue.shift()</span><br><span class="line"></span><br><span class="line">  while (node) &#123;</span><br><span class="line">    arr.push(node)</span><br><span class="line">    if (node.children.length) &#123;</span><br><span class="line">      for (let i = node.children.length - 1; i &gt;= 0; i--) &#123;</span><br><span class="line">        queue.unshift(node.children[i])</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    node = queue.shift()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return arr</span><br><span class="line">&#125;</span><br><span class="line">/** 复制的样式 */</span><br><span class="line">const CSSRules = [</span><br><span class="line">  &#x27;width&#x27;,</span><br><span class="line">  &#x27;height&#x27;,</span><br><span class="line">  &#x27;margin&#x27;,</span><br><span class="line">  &#x27;margin-top&#x27;,</span><br><span class="line">  &#x27;margin-right&#x27;,</span><br><span class="line">  &#x27;margin-bottom&#x27;,</span><br><span class="line">  &#x27;margin-left&#x27;,</span><br><span class="line">  &#x27;border&#x27;,</span><br><span class="line">  &#x27;border-radius&#x27;,</span><br><span class="line">  &#x27;border-top&#x27;,</span><br><span class="line">  &#x27;border-right&#x27;,</span><br><span class="line">  &#x27;border-bottom&#x27;,</span><br><span class="line">  &#x27;border-left&#x27;,</span><br><span class="line">  &#x27;padding&#x27;,</span><br><span class="line">  &#x27;padding-top&#x27;,</span><br><span class="line">  &#x27;padding-right&#x27;,</span><br><span class="line">  &#x27;padding-bottom&#x27;,</span><br><span class="line">  &#x27;padding-left&#x27;,</span><br><span class="line">  &#x27;position&#x27;,</span><br><span class="line">  &#x27;top&#x27;,</span><br><span class="line">  &#x27;right&#x27;,</span><br><span class="line">  &#x27;bottom&#x27;,</span><br><span class="line">  &#x27;left&#x27;,</span><br><span class="line">  &#x27;display&#x27;,</span><br><span class="line">  &#x27;flex-direction&#x27;,</span><br><span class="line">  &#x27;flex&#x27;,</span><br><span class="line">  &#x27;align-items&#x27;,</span><br><span class="line">  &#x27;background&#x27;,</span><br><span class="line">  &#x27;line-height&#x27;,</span><br><span class="line">  &#x27;font-family&#x27;,</span><br><span class="line">  &#x27;font-size&#x27;,</span><br><span class="line">  &#x27;color&#x27;,</span><br><span class="line">  &#x27;box-sizing&#x27;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">export const copyStyle = (element) =&gt; &#123;</span><br><span class="line">  const styles = getComputedStyle(element)</span><br><span class="line"></span><br><span class="line">  CSSRules.forEach((rule) =&gt; &#123;</span><br><span class="line">    element.style.setProperty(rule, styles.getPropertyValue(rule))</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">/** 处理图像资源 */</span><br><span class="line">export const img2base64 = (element) =&gt; new Promise&lt;string&gt;((resolve, reject) =&gt; &#123;</span><br><span class="line">  const img = new Image()</span><br><span class="line"></span><br><span class="line">  /** 处理 canvas 受污染的情况 */</span><br><span class="line">  img.crossOrigin = &#x27;anonymous&#x27;</span><br><span class="line"></span><br><span class="line">  img.onerror = reject</span><br><span class="line">  img.onload = function () &#123;</span><br><span class="line">    const canvas = document.createElement(&#x27;canvas&#x27;)</span><br><span class="line">    const ctx = canvas.getContext(&#x27;2d&#x27;)</span><br><span class="line"></span><br><span class="line">    canvas.width = this.naturalWidth</span><br><span class="line">    canvas.height = this.naturalHeight</span><br><span class="line">    ctx?.drawImage(this, 0, 0)</span><br><span class="line">    resolve(canvas.toDataURL())</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  img.src = element.src</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">import &#123; copyStyle, DFSDomTraversal, img2base64 &#125; from &#x27;./tool&#x27;</span><br><span class="line"></span><br><span class="line">export const dom2base64 = async (root:HTMLElement, dpr = window.devicePixelRatio) =&gt; &#123;</span><br><span class="line">  console.log(root, &#x27;root&#x27;)</span><br><span class="line">  DFSDomTraversal(root)?.forEach(copyStyle)</span><br><span class="line"></span><br><span class="line">  const imgElements = [...root.querySelectorAll(&#x27;img&#x27;)]</span><br><span class="line"></span><br><span class="line">  const base64Result:string[] = await Promise.all(imgElements.map(img2base64))</span><br><span class="line"></span><br><span class="line">  const width = root.offsetWidth</span><br><span class="line">  const height = root.offsetHeight</span><br><span class="line">  let XHTML = new XMLSerializer().serializeToString(root)</span><br><span class="line"></span><br><span class="line">  imgElements.forEach((element, index) =&gt; &#123;</span><br><span class="line">    XHTML = XHTML.replace(element.src, base64Result[index])</span><br><span class="line">  &#125;)</span><br><span class="line">  const SVGDomElement = `&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; height=&quot;$&#123;height&#125;&quot; width=&quot;$&#123;width&#125;&quot;&gt;</span><br><span class="line">                            &lt;foreignObject height=&quot;100%&quot; width=&quot;100%&quot;&gt;$&#123;XHTML&#125;&lt;/foreignObject&gt;</span><br><span class="line">                        &lt;/svg&gt;`</span><br><span class="line"></span><br><span class="line">  const canvas = document.createElement(&#x27;canvas&#x27;)</span><br><span class="line">  const ctx = canvas.getContext(&#x27;2d&#x27;)</span><br><span class="line"></span><br><span class="line">  canvas.width = width * dpr</span><br><span class="line">  canvas.height = height * dpr</span><br><span class="line">  canvas.style.width = `$&#123;width&#125;px`</span><br><span class="line">  canvas.style.height = `$&#123;height&#125;px`</span><br><span class="line"></span><br><span class="line">  const img = new Image()</span><br><span class="line"></span><br><span class="line">  img.onload = function () &#123;</span><br><span class="line">    ctx.scale(dpr, dpr)</span><br><span class="line">    ctx.drawImage(this, 0, 0)</span><br><span class="line">    canvas.toBlob((blob) =&gt; &#123;</span><br><span class="line">      navigator.clipboard.write(</span><br><span class="line">        [</span><br><span class="line">          new window.ClipboardItem(&#123;</span><br><span class="line">            &#x27;image/png&#x27;: blob,</span><br><span class="line">          &#125;),</span><br><span class="line">        ],</span><br><span class="line">      )</span><br><span class="line">      console.log(blob, &#x27;blob&#x27;)</span><br><span class="line">      console.log(img.src)</span><br><span class="line">    &#125;)</span><br><span class="line">    // console.log(canvas, &#x27;canvas&#x27;)</span><br><span class="line">    // return canvas</span><br><span class="line">    // document.body.appendChild(canvas)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  img.src = `data:image/svg+xml,$&#123;SVGDomElement&#125;`</span><br><span class="line">  console.log(img.src)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/04/%E6%A8%8A%E7%99%BB%E7%9A%849%E5%A0%82%E5%95%86%E4%B8%9A%E8%AF%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1098,104 +1180,11 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/28/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/28/hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">使用hexo搭建博客</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-11-28 11:18:35" itemprop="dateCreated datePublished" datetime="2021-11-28T11:18:35+08:00">2021-11-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-12-14 11:58:24" itemprop="dateModified" datetime="2021-12-14T11:58:24+08:00">2021-12-14</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="使用hexo搭建博客的主要流程"><a href="#使用hexo搭建博客的主要流程" class="headerlink" title="使用hexo搭建博客的主要流程"></a>使用hexo搭建博客的主要流程</h1><p>创建一个博客文件夹blog</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">npm i -g hexo-cli, 安装hexo脚手架</span><br><span class="line"></span><br><span class="line">sudo hexo init, 初始化自动化生成内容</span><br><span class="line"></span><br><span class="line">ls -l, 查看生成了哪些文件</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="hexo的主要命令"><a href="#hexo的主要命令" class="headerlink" title="hexo的主要命令"></a>hexo的主要命令</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">启动：hexo s[start]</span><br><span class="line"></span><br><span class="line">新建文章：hexo n[new] ‘博客标题’</span><br><span class="line"></span><br><span class="line">清理：hexo clean</span><br><span class="line"></span><br><span class="line">生成：hexo g[generate]</span><br><span class="line"></span><br><span class="line">部署命令：hexo d[deploy]</span><br></pre></td></tr></table></figure>
-<h1 id="将博客部署到github上"><a href="#将博客部署到github上" class="headerlink" title="将博客部署到github上"></a>将博客部署到github上</h1><p>在github上新建一个仓库，名称为xxx.github.io【xxx必须与昵称相同】</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm id —save hexo-deployer-git, 安装git部署插件</span><br></pre></td></tr></table></figure>
-<p>修改_config.yml文件</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim _config.yml</span><br><span class="line">type: ’git’</span><br><span class="line">repo: 仓库地址</span><br><span class="line">branch: master</span><br></pre></td></tr></table></figure>
-<p>部署完成后可以访问仓库地址xxx.github.io</p>
-<h1 id="如何修改博客主题"><a href="#如何修改博客主题" class="headerlink" title="如何修改博客主题"></a>如何修改博客主题</h1><p>下载主题到themes下的目录中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<p>在.config.yml中Extensions的theme中将landscope修改为next，并重新部署项目</p>
-<h1 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h1><ol>
-<li>如何添加多个ssh key<br>首先，生成多个ssh key，默认的ssh key不需要重新命名<br>生成的ssh key在~/.ssh文件夹下<br>其中id_rsa为私钥，id_.rsa.pub为公钥<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;chenshasha@zhiyitech.cn&quot;</span><br><span class="line">ssh-keygen -t rsa -C &quot;13738773772@163.com&quot; -f ~/.ssh/id_rsa_mine</span><br></pre></td></tr></table></figure></li>
-<li>如何获取ssh key<ul>
-<li>执行cat ~/.ssh/id_rsa.pub 并粘贴控制台的内容</li>
-<li>将文件拖入添加ssh key的地方</li>
-</ul>
-</li>
-<li>在~/.ssh文件夹下新增配置文件vim config<br>遇到报错说明：已存在config文件，把这个文件删除就好,rm .config.xxx<br>vim的操作</li>
-</ol>
-<ul>
-<li>i为插入，退出插入按esc</li>
-<li>dw为删除</li>
-<li>:wq为保存</li>
-</ul>
-<ol start="4">
-<li>config文件具体配置，HostName为git地址冒号前的内容<br>如果没有配置config文件，会出现以下报错<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> // 如果Host和HostName配置错误也会出现下面的错误</span><br><span class="line"> Permission denied (publickey)</span><br><span class="line"> // 使用以下命令可以查看具体连接,查看Offering public key是否使用了正确的私钥</span><br><span class="line"> ssh -vvvT git@gitlab.com</span><br><span class="line">&lt;!--  但是在使用sudo hexo d的时候依旧报denied的错误，是因为sudo命令是去/root/.ssh下去寻找秘钥，找不到的时候就会报错</span><br><span class="line"> 这种情况下可以创建文件夹，也可以使用以下命令去掉sudo --&gt; </span><br><span class="line"> sudo chmod -R 777 ./blog</span><br></pre></td></tr></table></figure>
-config具体配置如下<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Host gitlab</span><br><span class="line">    User git  </span><br><span class="line">    HostName git@gitlab.zhiyitech.cn</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa</span><br><span class="line">Host github.com</span><br><span class="line">    User git  </span><br><span class="line">    HostName github.com</span><br><span class="line">    PreferredAuthentications publickey</span><br><span class="line">    IdentityFile ~/.ssh/id_rsa_mine</span><br></pre></td></tr></table></figure></li>
-<li>校验是否成功的时候报错，执行命令ssh -T <a href="mailto:&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#x6c;&#97;&#98;&#x2e;&#x7a;&#104;&#x69;&#121;&#105;&#116;&#101;&#x63;&#104;&#x2e;&#x63;&#110;">&#x67;&#x69;&#116;&#64;&#x67;&#x69;&#x74;&#x6c;&#97;&#98;&#x2e;&#x7a;&#104;&#x69;&#121;&#105;&#116;&#101;&#x63;&#104;&#x2e;&#x63;&#110;</a><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh:The ECDSA host key for gitlab.317hu.com has changed</span><br></pre></td></tr></table></figure>
-解决方法：删除~/.ssh文件夹下的known_hosts文件，重新按照第一个步骤生成ssh key</li>
-<li>hexo部署到github之后报错<br>解决方法：新建文件夹名称的时候报错，名称必须为用户名.github.io，同时修改项目中_config.yml文件的配置</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1260,7 +1249,7 @@ config具体配置如下<figure class="highlight plaintext"><table><tr><td class
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
